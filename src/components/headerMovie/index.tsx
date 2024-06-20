@@ -5,7 +5,9 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import HomeIcon from "@mui/icons-material/Home";
-import { MovieDetailsProps } from "../../types/interfaces"; 
+import { MovieDetailsProps } from "../../types/interfaces";
+import Avatar from "@mui/material/Avatar";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const styles = {
     root: {  
@@ -15,29 +17,65 @@ const styles = {
     flexWrap: "wrap",
     padding: 1.5,
   },
+  avatar: {
+      backgroundColor: "rgb(255, 0, 0)",
+  },
 };
 
 const MovieHeader: React.FC<MovieDetailsProps> = (movie) => {
+  console.log(movie)
+  let fav = false
+  let favourites = localStorage.getItem("favourites");
+  if (favourites != null) {
+    favourites = JSON.parse(favourites);
+    const favouriteMovieNames = favourites.map((favourite: { original_tile: string; }) => favourite.original_title)
+    if (favouriteMovieNames.includes(movie.original_title)) {
+      fav = true
+    }
+  }
+  if (fav) {
+    return (
+      <Paper component="div" sx={styles.root}>
+        <IconButton aria-label="go back">
+          <ArrowBackIcon color="primary" fontSize="large" />
+        </IconButton>
+          <Avatar sx={styles.avatar}>
+            <FavoriteIcon />
+          </Avatar>
+        <Typography variant="h4" component="h3">
+          {movie.title}{"   "}
+          <a href={movie.homepage}>
+            <HomeIcon color="primary"  fontSize="large"/>
+          </a>
+          <br />
+          <span>{`${movie.tagline}`} </span>
+        </Typography>
+        <IconButton aria-label="go forward">
+          <ArrowForwardIcon color="primary" fontSize="large" />
+        </IconButton>
+      </Paper>
+    );
+  } else {
+    return (
+      <Paper component="div" sx={styles.root}>
+        <IconButton aria-label="go back">
+          <ArrowBackIcon color="primary" fontSize="large" />
+        </IconButton>
+        <Typography variant="h4" component="h3">
+          {movie.title}{"   "}
+          <a href={movie.homepage}>
+            <HomeIcon color="primary"  fontSize="large"/>
+          </a>
+          <br />
+          <span>{`${movie.tagline}`} </span>
+        </Typography>
+        <IconButton aria-label="go forward">
+          <ArrowForwardIcon color="primary" fontSize="large" />
+        </IconButton>
+      </Paper>
+    );
+  }
   
-  return (
-    <Paper component="div" sx={styles.root}>
-      <IconButton aria-label="go back">
-        <ArrowBackIcon color="primary" fontSize="large" />
-      </IconButton>
-
-      <Typography variant="h4" component="h3">
-        {movie.title}{"   "}
-        <a href={movie.homepage}>
-          <HomeIcon color="primary"  fontSize="large"/>
-        </a>
-        <br />
-        <span>{`${movie.tagline}`} </span>
-      </Typography>
-      <IconButton aria-label="go forward">
-        <ArrowForwardIcon color="primary" fontSize="large" />
-      </IconButton>
-    </Paper>
-  );
 };
 
 export default MovieHeader;
