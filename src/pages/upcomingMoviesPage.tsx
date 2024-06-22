@@ -24,7 +24,7 @@ const UpcomingMoviesPage: React.FC = () => {
         <PageTemplate
             title='Discover Movies'
             movies={movies}
-            selectFavourite={addToFavourites}
+            action={addToFavourites}
         />
     )
 };
