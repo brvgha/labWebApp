@@ -23,7 +23,6 @@ const styles = {
 };
 
 const MovieHeader: React.FC<MovieDetailsProps> = (movie) => {
-  console.log(movie)
   let fav = false
   let favourites = localStorage.getItem("favourites");
   if (favourites != null) {
