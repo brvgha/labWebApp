@@ -2,9 +2,11 @@ import React from "react";
 import { getUpcomingMovies } from "../api/tmdb-api";
 import { BaseMovieProps, DiscoverMovies } from "../types/interfaces";
 import PageTemplate from '../components/templateMovieListPage';
-import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
+import AddToMustWatchIcon from "../components/cardIcons/addToMustWatch";
+
+
 
 const UpcomingMoviesPage: React.FC = () => {
     const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("upcoming", getUpcomingMovies);
@@ -22,7 +24,7 @@ const UpcomingMoviesPage: React.FC = () => {
             title='Upcoming Movies'
             movies={movies}
             action={(movie: BaseMovieProps) => {
-                return <AddToFavouritesIcon {...movie} />
+                return <AddToMustWatchIcon {...movie} />
             }}
         />
     )
