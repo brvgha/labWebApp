@@ -28,6 +28,7 @@ const UpcomingMoviesPage: React.FC = () => {
             }}
         />
     )
+
     
 };
 
