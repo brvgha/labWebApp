@@ -49,7 +49,6 @@ const HomePage: React.FC = () => {
   const movies = data ? data.results : [];
   const displayedMovies = filterFunction(movies);
 
-
   return (
     <>
       <PageTemplate
